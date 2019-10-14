@@ -1,5 +1,5 @@
 /**
- * 设置响应
+ * RESTful api项目合理的目录结构
  */
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser')
