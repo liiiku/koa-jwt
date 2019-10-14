@@ -1,5 +1,6 @@
 /**
- * 设置响应
+ * 获取HTTP请求中的参数
+ * 断点调试
  */
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser')
@@ -7,38 +8,33 @@ const Router = require('koa-router');
 const app = new Koa();
 const router = new Router();
 // 前缀
-const usersRouter = new Router({ prefix: '/users' });
-
-const db = [{ name: '李雷' }];
+const usersRouter = new Router({
+  prefix: '/users'
+})
 
 router.get('/', (ctx) => {
-  ctx.body = '<h1>这是主页</h1>';
+  ctx.body = '这是主页';
 })
 
 usersRouter.get('/', (ctx) => {
-  /**
-   * /users 这个接口既支持get方法，又支持post方法 本来这个是options方法返回的，这里返回也没有问题
-   * 设置响应头
-   */
-  ctx.set('Allow', 'GET, POST');
-  ctx.body = db;
+  ctx.body = [
+    { name: '李雷' },
+    { name: '韩梅梅' },
+  ];
 })
 usersRouter.post('/', (ctx) => {
-  db.push(ctx.request.body); // 从请求起中获取
   // 返回新建的对象
-  ctx.body = ctx.request.body;
+  ctx.body = { name: '李雷' };
 })
 usersRouter.get('/:id', (ctx) => {
-  // 返回数组中的某一项 字符串-> 数字
-  ctx.body = db[ctx.params.id * 1];
+  // 返回数组中的某一项
+  ctx.body = { name: '李雷' };
 })
 usersRouter.put('/:id', (ctx) => {
-  db[ctx.params.id] = ctx.request.body
   // 修改后的对象
-  ctx.body = ctx.request.body;
+  ctx.body = { name: '李雷2' };
 })
 usersRouter.delete('/:id', (ctx) => {
-  db.splice(ctx.params.id * 1, 1);
   ctx.status = 204;
 })
 
