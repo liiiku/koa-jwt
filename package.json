@@ -1,0 +1,28 @@
+{
+  "name": "koa-jwt",
+  "version": "1.0.0",
+  "description": "学习nodejs-知乎api",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/liiiku/koa-jwt.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/liiiku/koa-jwt/issues"
+  },
+  "homepage": "https://github.com/liiiku/koa-jwt#readme",
+  "dependencies": {
+    "koa": "^2.8.2",
+    "koa-router": "^7.4.0"
+  },
+  "devDependencies": {
+    "nodemon": "^1.19.3"
+  }
+}
