@@ -4,6 +4,7 @@
 const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const error = require('koa-json-error');
+const parameter = require('koa-parameter');
 const routing = require('./routes');
 const app = new Koa();
 
@@ -32,6 +33,11 @@ app.use(error({
   }
 }));
 app.use(bodyParser());
+/**
+ * 校验参数通常是校验请求体的所以一般放到请求体的后面
+ * 这里传入app的原因：可以再ctx中加入方法，就可以再全局中使用
+ */
+app.use(parameter(app));
 routing(app);
 
 app.listen(3000, () => {
