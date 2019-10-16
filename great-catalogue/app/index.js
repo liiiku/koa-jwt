@@ -2,8 +2,9 @@
  * RESTful api项目合理的目录结构
  */
 const Koa = require('koa');
-const bodyParser = require('koa-bodyparser')
-const routing = require('./routes')
+const bodyParser = require('koa-bodyparser');
+const error = require('koa-json-error');
+const routing = require('./routes');
 const app = new Koa();
 
 /**
@@ -11,18 +12,25 @@ const app = new Koa();
  * 404 的错误处理不走中间件，这算是有一个遗憾吧
  * 能够捕获手动抛出的信息、运行时错误信息
  */
-app.use(async (ctx, next) => {
-  try {
-    console.log(1)
-    await next();
-  } catch(err) {
-    console.log(3);
-    ctx.status = err.status || err.statusCode || 500;
-    ctx.body = {
-      message: err.message
-    }
+// app.use(async (ctx, next) => {
+//   try {
+//     console.log(1)
+//     await next();
+//   } catch(err) {
+//     console.log(3);
+//     ctx.status = err.status || err.statusCode || 500;
+//     ctx.body = {
+//       message: err.message
+//     }
+//   }
+// });
+
+
+app.use(error({
+  postFormat: (e, {stack, ...rest}) => {
+    return process.env.NODE_ENV === 'production' ? rest : { stack, ...rest };
   }
-});
+}));
 app.use(bodyParser());
 routing(app);
 
