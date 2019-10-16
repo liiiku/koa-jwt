@@ -2,6 +2,7 @@ const db = [{ name: '李雷' }];
 
 class UsersCtl {
   find(ctx) {
+    console.log(4);
     a.b
     ctx.body = db;
   }
