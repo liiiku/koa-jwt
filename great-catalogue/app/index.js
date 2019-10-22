@@ -5,7 +5,9 @@ const Koa = require('koa');
 const bodyParser = require('koa-bodyparser');
 const error = require('koa-json-error');
 const parameter = require('koa-parameter');
+const mongoose = require('mongoose');
 const routing = require('./routes');
+const { connectionStr } = require('./config');
 const app = new Koa();
 
 /**
@@ -26,6 +28,14 @@ const app = new Koa();
 //   }
 // });
 
+
+mongoose.connect(connectionStr, { 
+  useNewUrlParser: true,
+  useUnifiedTopology: true, 
+}, () => {
+  console.log('mongodb连接成功了！');
+});
+mongoose.connection.on('error', console.error);
 
 app.use(error({
   postFormat: (e, {stack, ...rest}) => {
